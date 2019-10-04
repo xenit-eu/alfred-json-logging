@@ -1,0 +1,8 @@
+plugins {
+    id 'eu.xenit.alfresco' version "1.0.0"
+    id 'eu.xenit.amp' version "1.0.0"
+}
+
+dependencies {
+    compile('net.logstash.log4j:jsonevent-layout:1.7')
+}

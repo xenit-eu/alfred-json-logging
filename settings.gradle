@@ -1,0 +1,6 @@
+include 'alfred-json-logging'
+
+include ':integration-tests'
+["52", "60", "61"].each { version ->
+    include ":integration-tests:alfresco-community-${version}"
+}

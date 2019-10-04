@@ -1,0 +1,48 @@
+plugins {
+    id 'eu.xenit.docker-alfresco' version '4.0.3' apply false
+    id 'idea'
+}
+
+import com.avast.gradle.dockercompose.tasks.ComposeDown
+
+subprojects {
+
+    def edition = project.name.split("-")[1]
+    apply from: "${project.projectDir}/overload.gradle"
+
+    description = "Alfresco ${alfrescoVersion} with Json Logging"
+
+    apply plugin: 'eu.xenit.docker-alfresco'
+    apply plugin: 'java'
+
+    dependencies {
+        alfrescoAmp project(path: ":alfred-json-logging", configuration: "amp")
+        baseAlfrescoWar "org.alfresco:${alfrescoArtifactId}:${alfrescoVersion}@war"
+    }
+
+    dockerAlfresco {
+        baseImage = "hub.xenit.eu/alfresco-repository-${edition}:${alfrescoVersion}"
+        leanImage = true
+
+        dockerBuild {
+            repository = "hub.xenit.eu/alfred/json-logging"
+            tags = ["${version}-alfresco-${alfrescoVersion}"]
+            automaticTags = false
+        }
+    }
+
+    // only start up Alfresco; compose down is done by travis
+    task smokeTests(type: Test) {
+        dependsOn composeUp
+    }
+
+    check.dependsOn smokeTests
+
+    dockerCompose {
+        dockerComposeWorkingDirectory = "${project.parent.projectDir}/src/main/compose/"
+    }
+
+    task composeDownAll {
+        dependsOn project.tasks.withType(ComposeDown)
+    }
+}
