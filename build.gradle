@@ -10,7 +10,3 @@ subprojects {
     }
 }
 
-wrapper {
-    distributionType = Wrapper.DistributionType.ALL
-    gradleVersion = '4.10.2'
-}
