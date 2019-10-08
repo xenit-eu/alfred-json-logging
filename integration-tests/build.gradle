@@ -25,7 +25,7 @@ subprojects {
         leanImage = true
 
         dockerBuild {
-            repository = "hub.xenit.eu/alfred/json-logging"
+            repository = "hub.xenit.eu/alfred-ops/alfresco-json-logging"
             tags = ["${version}-alfresco-${alfrescoVersion}"]
             automaticTags = false
         }
