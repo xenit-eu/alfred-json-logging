@@ -7,3 +7,5 @@ dependencies {
     compile('net.logstash.log4j:jsonevent-layout:1.7')
     alfrescoProvided('org.springframework:spring-beans:3.2.17.RELEASE')
 }
+
+apply from: "publish.gradle"
