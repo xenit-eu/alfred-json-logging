@@ -2,5 +2,5 @@
 <!DOCTYPE beans PUBLIC '-//SPRING//DTD BEAN//EN' 'http://www.springframework.org/dtd/spring-beans.dtd'>
 <!-- Workaround for MNT-18557: force the log4j hierarchy to be initialized as early as possible. -->
 <beans>
-  <bean id="eu.xenit.alfresco.logging.NullBeanDefinitionRegistryPostProcessor" class="eu.xenit.alfresco.logging.NullBeanDefinitionRegistryPostProcessor" depends-on="log4JHierarchyInit"/>
+  <bean id="eu.xenit.alfred.logging.NullBeanDefinitionRegistryPostProcessor" class="eu.xenit.alfred.logging.NullBeanDefinitionRegistryPostProcessor" depends-on="log4JHierarchyInit"/>
 </beans>

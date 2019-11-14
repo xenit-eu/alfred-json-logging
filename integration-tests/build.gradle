@@ -21,13 +21,15 @@ subprojects {
     }
 
     dockerAlfresco {
-        baseImage = "hub.xenit.eu/alfresco-repository-${edition}:${alfrescoVersion}"
+	def namespace = (edition=="community"?"public":"alfresco-${edition}")
+        baseImage = "hub.xenit.eu/${namespace}/alfresco-repository-${edition}:${alfrescoVersion}"
         leanImage = true
 
         dockerBuild {
-            repository = "hub.xenit.eu/alfred-ops/alfresco-json-logging"
+            repository = "hub.xenit.eu/alfred-ops/alfred-json-logging"
             tags = ["${version}-alfresco-${alfrescoVersion}"]
             automaticTags = false
+            pull = true
         }
     }
 

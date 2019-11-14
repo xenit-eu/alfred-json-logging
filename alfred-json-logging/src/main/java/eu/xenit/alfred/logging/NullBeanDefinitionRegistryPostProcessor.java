@@ -1,4 +1,4 @@
-package eu.xenit.alfresco.logging;
+package eu.xenit.alfred.logging;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
