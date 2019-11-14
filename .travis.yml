@@ -15,5 +15,23 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+env:
+  global:	
+    - PUBLISH_USER=xenit
+    - SIGN_KEY_ID=CDE3528F
+    - SIGN_SECRET_KEY_RINGFILE=secring.gpg
+    - secure: "TsJYoERwrhRuixPcA1YwQsVsJPdgQxn+pcEj2dXFNkYnWXHl1FXGYAI41jTRfCHRpyi2xRyKJUT4nPRaWIZHeaY1PkmoFt0Ty7Ak9fh3bI3N+fCOx5tY89Hd4REN/PfR9R/iAb70Kg+cKGoIrBV4YHulJsTKpNch+hYuhHUdM9oMJXsRuAKbWYof8fqffGeWELDcYqwKj5ME6VVC3JmRjJi4nbKs5aTUOq6aN0G2stois8hRyqZRUEzObbSbhMVGMqYR070xLti875H8/31T5Yi1WVyxNsyXlj5fh+zcC6stYVgRvMfW3Q2fB424jPvL72Bgb22vcxckYcxZmTfFJeMdVeCYVHlS0aGn/U38dChbZc80Xa4gb5BnKAskz66F6q5A4/7gki9GINUytLTysjIBs1SJekWUd7KEUL+cz3k/fx5pi9N08kH90YlADRltTIjLnJ0OGIV0XgyjP3mxJP47TDPzBq0zc3SQveRqP063y0GtB/6SxLKTRIFLhxvDTmJYHbVAfrKJmCYypmGZX3nUcrjeOoQutv5pV9y4ixu4ul7LwHDk6eRiC3FD/bPcG8+1SGNxL2fqcQEZ+GR6GT4HimMYZbzWgWdYIDvsnslzFUkoZB/Lh8pAne086GSVDMFJVgaRmWUpilv9g1nh5WSxN3+zt0Q4v3lEBE9R+Ic="
+    - secure: "KW+OlhO9eY3/8dTXWVo/YAzcno7olIO+YJCVSvbMBuZtMRYIwYCwZ0GbcMGKMWZxMZwUD7gsi20TUY6IA3M9XkgmluN8v/tg4tY+T4xRRflZ4OK1Ea/eFHm9ABxFehbDkNu1SIVGyu4kAm9evGwNxzMbHSL8nX5orieuhBLg1PMjCFIcEn0CudxxIkdnbRv2Zg49ug+LoBw4Jy6cUqc4hGQY3JQiz665RqRqzmreFDDkhfgLCg8H3k0N8b5iT57iMfg3zbWYMQ3+gsezbCe29/40FGxT+b7uKR9SxkcLLSp2nW4+GZupjEPByqS1KaUmCFuDPUGf3qPS86FFxEhUYMrWd5XG+xUEpNT2QmxoK4DY7B3PWIhYJmjLiqRWQC2PSsvrSskBMK2F1CTU2jTGbaNREVt4NIp6LTyxvFnXxWciAnsuQOKEpZiSK41yNxkvBKnO0O7Y52BetZ+xQD4BNSHnHbiqEB3EpI8pO9PT2aWS0ttkPx9YBHMDjnoEGRlbhOWX/AhOR+6Be4kyhV7jlC1oiQsrQV1e2B/2P2dYSAINd8hpzvwcMVfzKKhX+fmMi6UG5f4DA5gQJU0OWf38VeHb0CI/eBzkIIsCc7+etDdyBLh1JDkXhynhiEgF4YOvpSCJa61GaOnh1HF2P5k1qZcSGuUs6pJvCpkE/XJQdMs="
+
+before_install:
+    - chmod +x ./gradlew
+    - openssl aes-256-cbc -K $encrypted_c6215021d27f_key -iv $encrypted_c6215021d27f_iv -in secring.gpg.enc -out secring.gpg -d
+    
 script: ./gradlew check --info
+
+deploy:
+  provider: script
+  script: ./gradlew publish ; ./gradlew closeAndReleaseRepository
+  on:
+    branch: master
 
