@@ -30,6 +30,7 @@ before_install:
 script: ./gradlew check --info
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: ./gradlew publish ; ./gradlew closeAndReleaseRepository
   on:
